@@ -19,7 +19,7 @@ git clone https://github.com/your-github-username/ip-locator.git
 ```
 3. Navegue até o diretório do projeto:
 ```
-git clone https://github.com/your-github-username/ip-locator.git
+cd ip-locator
 ```
 4. Instale as dependências:
 ```
