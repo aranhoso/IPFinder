@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+        <link rel="icon" href="{{ url_for('static', filename='media/favicon-32x32.png') }}">
+
+        <title>Localizador de IP</title>
+    </head>
+    <body>
+
+        <nav class="navbar">
+            <div class="container-fluid justify-content-center p-3">
+                <img src="{{ url_for('static', filename='media/IPFinder-logo.png') }}" height="50" class="icon"/>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="info-box">
+                <form method="POST" class="form-inline my-2">
+                    <label for="ip" class="mr-2">Digite um endereço IP:</label>
+                    <input type="text" id="ip-input" name="ip" class="form-control mr-2" required>
+
+                    <button type="submit" id="search-button" class="btn btn-primary" style="background-color: #eb5e28; border: none;">Buscar</button>
+                </form>
+            </div>
+            {% if ip %}
+                <div class="alert my-2 default-shadow main-box">
+                    <h4>Detalhes do IP
+                        {{ ip }}</h4>
+                    <p>
+                        <strong>Localização:</strong>
+                        {{ location['city'] }},
+                        {{ location['region'] }},
+                        {{ location['country'] }}</p>
+                    <p>
+                        <strong>Provedor de Internet:</strong>
+                        {{ location['org'] }}</p>
+                    <p>
+                        <strong>Coordenadas Aproximadas:</strong>
+                        {{ location['loc'] }}</p>
+                    <p>
+                        <strong>Código Postal:</strong>
+                        {{ location['postal'] }}</p>
+                    <p>
+                        <strong>Fuso Horário:</strong>
+                        {{ location['timezone'] }}</p>
+                    <p>
+                        <strong>Teste:</strong>
+                        {{ location['hostname'] }}</p>
+
+                    <div id="map" class="alternate-shadow map-box"></div>
+
+                    <script>
+                        function initMap() {
+                            var loc = '{{ location['loc'] }}'.split(',');
+                            var lat = parseFloat(loc[0]);
+                            var lng = parseFloat(loc[1]);
+                            var myLatLng = {
+                                lat: lat,
+                                lng: lng
+                            };
+
+                            var map = new google.maps.Map(document.getElementById('map'), {
+                                zoom: 10,
+                                center: myLatLng
+                            });
+
+                            var marker = new google.maps.Marker({position: myLatLng, map: map, title: 'Localização aproximada do IP'});
+                        }
+                    </script>
+
+                    <script async defer src="https://maps.googleapis.com/maps/api/js?key=INSER_API_KEY_HERE&callback=initMap"></script>
+
+                </div>
+            {% endif %}
+        </div>
+    </body>
+</html>

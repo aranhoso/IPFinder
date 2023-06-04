@@ -1,0 +1,41 @@
+@media (max-width: 576px) {
+    #search-button {
+        display: block;
+        margin: 1rem auto;
+    }
+    #ip-input {
+        max-width: 50%;
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+.navbar {
+    background-color: #403d39; margin-bottom: 2rem;
+}
+
+.icon {
+    pointer-events: none;
+    user-select: none;
+}
+
+.default-shadow {
+    box-shadow: 10px 10px 40px -13px rgba(0,0,0,0.23);
+}
+
+.alternate-shadow {
+    box-shadow: -10px -10px 40px -13px rgba(0,0,0,0.23);
+}
+
+.info-box {
+    margin-bottom: 2rem;
+}
+
+.main-box {
+    background-color: #d6cfcb;
+}
+
+.map-box {
+    height: 400px; 
+    width: 100%;
+}
